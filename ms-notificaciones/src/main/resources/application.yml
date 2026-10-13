@@ -1,0 +1,28 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: ms-notificaciones
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASS:}
+    listener:
+      simple:
+        acknowledge-mode: manual
+        prefetch: 10
+        default-requeue-rejected: false
+
+app:
+  rabbitmq:
+    notificaciones:
+      queue: notificaciones.queue
+    auditoria:
+      queue: auditoria.queue
+    tickets:
+      queue: tickets.queue
+  consumo:
+    max-intentos: 3
+    espera-ms: 1000

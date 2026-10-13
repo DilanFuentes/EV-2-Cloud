@@ -1,0 +1,29 @@
+spring:
+  rabbitmq:
+    host: ${RABBITMQ_HOST:localhost}
+    port: ${RABBITMQ_PORT:5672}
+    username: ${RABBITMQ_USER:admin}
+    password: ${RABBITMQ_PASS:}
+
+app:
+  rabbitmq:
+    exchanges:
+      pedidos: pedidos.exchange
+      pedidos-dlx: pedidos.dlx
+      tickets: tickets.exchange
+      tickets-dlx: tickets.dlx
+    notificaciones:
+      queue: notificaciones.queue
+      routing-key: pedido.creado
+      dlq: notificaciones.dlq
+      dlq-routing-key: notificaciones.dead
+    auditoria:
+      queue: auditoria.queue
+      routing-key: pedido.creado
+      dlq: auditoria.dlq
+      dlq-routing-key: auditoria.dead
+    tickets:
+      queue: tickets.queue
+      routing-key: ticket.generar
+      dlq: tickets.dlq
+      dlq-routing-key: tickets.dead

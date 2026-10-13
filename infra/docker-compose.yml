@@ -1,0 +1,41 @@
+services:
+  rabbit1:
+    image: rabbitmq:3.13-management
+    container_name: rabbit1
+    hostname: rabbit1
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    volumes:
+      - rabbit1_data:/var/lib/rabbitmq
+    networks:
+      - rabbit-net
+
+  rabbit2:
+    image: rabbitmq:3.13-management
+    container_name: rabbit2
+    hostname: rabbit2
+    environment:
+      RABBITMQ_ERLANG_COOKIE: ${RABBITMQ_ERLANG_COOKIE}
+      RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
+      RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
+    ports:
+      - "5673:5672"
+      - "15673:15672"
+    volumes:
+      - rabbit2_data:/var/lib/rabbitmq
+    depends_on:
+      - rabbit1
+    networks:
+      - rabbit-net
+
+volumes:
+  rabbit1_data:
+  rabbit2_data:
+
+networks:
+  rabbit-net:

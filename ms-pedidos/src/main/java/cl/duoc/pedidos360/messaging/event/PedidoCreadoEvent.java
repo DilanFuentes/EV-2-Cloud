@@ -1,0 +1,12 @@
+package cl.duoc.pedidos360.messaging.event;
+
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
+
+/** Evento que se publica cuando un pedido se guarda correctamente. */
+public record PedidoCreadoEvent(
+        Long pedidoId,
+        Long clienteId,
+        BigDecimal total,
+        String estado,
+        LocalDateTime fechaCreacion) {}
